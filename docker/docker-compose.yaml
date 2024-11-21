@@ -1,0 +1,34 @@
+version: '3'
+services:
+   holoscan-sdk:
+      build:
+         context: ./
+         dockerfile: Dockerfile
+        #  args:
+            # - WS_ROVERPERCEPTION=${WS_ROVERPERCEPTION} # Read workspace url from .env file
+      container_name: holoscan-sdk
+      volumes:
+          - ${WS}:/ws # for mount rosbag file. Change here as your environment (optional. needed only at test)
+          - ${WS}/../docker/scripts:/ws/scripts # for mount rosbag file. Change here as your environment (optional. needed only at test)
+      ports:
+         - "2222:22" # Map host port 2222 to container port 22      
+      devices:
+         - /dev/bus/usb:/dev/bus/usb # just in case for use USB devices
+      environment:
+         - DISPLAY=$DISPLAY          # Quote from run-image.sh (rover perception)
+         - QT_X11_NO_MITSHM=1        # Quote from run-image.sh (rover perception)
+         - XAUTHORITY=/tmp/.X11-unix # Quote from run-image.sh (rover perception)
+      network_mode: host             # Quote from run-image.sh (rover perception)
+      ipc:  host # FastDDS need this to communicate with other docker or host. Comment out if you don't boot ros2 environment on host or another docker.
+      privileged: true
+      tty: true # Keep docker alive
+      working_dir: /ws # Default path when enter into docker.
+      command: ['bash','/ws/scripts/${RUN_SCRIPT}'] # This invoke run.sh which launches ros2 node by 'ros2 launch'
+      # command: ['ls','/ws/scripts'] # This invoke run.sh which launches ros2 node by 'ros2 launch'
+      deploy: # Enable access to GPU. nvidia-container-toolkit is required.
+         resources:
+            reservations:
+               devices:
+                  - driver: nvidia
+                    count: all
+                    capabilities: [gpu]
