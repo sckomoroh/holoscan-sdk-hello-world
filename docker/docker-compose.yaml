@@ -11,7 +11,7 @@ services:
           - ${WS}:/ws # for mount rosbag file. Change here as your environment (optional. needed only at test)
           - ${WS}/../docker/scripts:/ws/scripts # for mount rosbag file. Change here as your environment (optional. needed only at test)
       ports:
-         - "2222:22" # Map host port 2222 to container port 22      
+         - "2220:22" # Map host port 2222 to container port 22      
       devices:
          - /dev/bus/usb:/dev/bus/usb # just in case for use USB devices
       environment:

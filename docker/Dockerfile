@@ -13,6 +13,6 @@ RUN apt update && \
 RUN echo "root:123" | chpasswd  # Set root password
 RUN echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
 
-EXPOSE 22
+# EXPOSE 22
 
 WORKDIR /ws
