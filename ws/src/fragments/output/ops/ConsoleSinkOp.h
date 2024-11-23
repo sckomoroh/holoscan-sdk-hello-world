@@ -2,15 +2,13 @@
 
 #include <holoscan/holoscan.hpp>
 
-class RandomGeneratorOp : public holoscan::Operator {
-private:
-    holoscan::Parameter<float> _minRange;
-    holoscan::Parameter<float> _maxRange;
+namespace holo::fragments::output::ops {
 
+class ConsoleSinkOp : public holoscan::Operator {
 public:
-    HOLOSCAN_OPERATOR_FORWARD_ARGS(RandomGeneratorOp)
+    HOLOSCAN_OPERATOR_FORWARD_ARGS(ConsoleSinkOp)
 
-    RandomGeneratorOp() = default;
+    ConsoleSinkOp() = default;
 
     void setup(holoscan::OperatorSpec& spec) override;
 
@@ -18,3 +16,5 @@ public:
                  holoscan::OutputContext& out_output,
                  holoscan::ExecutionContext& context) override;
 };
+
+}  // namespace holo::fragments::output::ops

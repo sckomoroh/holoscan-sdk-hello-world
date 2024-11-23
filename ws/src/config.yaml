@@ -1,0 +1,7 @@
+random_generator:
+  minRange: -5.0
+  maxRange: 5.0
+  count: 2
+  
+custom_processing_bin:
+  param1: 5.0

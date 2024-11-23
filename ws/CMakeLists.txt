@@ -15,10 +15,14 @@ include_directories(
 
 add_executable(${PROJECT_NAME}
     src/main.cpp
-    src/CustomBinApp.cpp
-    src/ConsoleSinkOp.cpp
-    src/RandomGeneratorOp.cpp
-    src/CustomProcessingBin.cpp
+    src/app/CustomBinApp.cpp
+
+    src/fragments/custom/CustomFragment.cpp
+    src/fragments/custom/ops/RandomGeneratorOp.cpp
+    src/fragments/custom/ops/SumOp.cpp
+    
+    src/fragments/output/OutputFragment.cpp
+    src/fragments/output/ops/ConsoleSinkOp.cpp
 )
 
 target_link_libraries(${PROJECT_NAME} PRIVATE 
